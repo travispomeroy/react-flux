@@ -3,19 +3,19 @@ import AboutPage from "./AboutPage";
 import HomePage from "./HomePage";
 import Header from "./infrastructure/Header";
 import CoursesPage from "./CoursesPage";
-
-const GetPage: React.FC = () => {
-  const route = window.location.pathname;
-  if (route === "/about") return <AboutPage />;
-  if (route === "/courses") return <CoursesPage />;
-  return <HomePage />;
-};
+import { Route, Switch } from "react-router-dom";
+import PageNoteFound from "./PageNoteFound";
 
 const App: React.FC = () => {
   return (
     <div>
       <Header />
-      <GetPage />
+      <Switch>
+        <Route path="/" exact component={HomePage} />
+        <Route path="/courses" component={CoursesPage} />
+        <Route path="/about" component={AboutPage} />
+        <Route component={PageNoteFound} />
+      </Switch>
     </div>
   );
 };
