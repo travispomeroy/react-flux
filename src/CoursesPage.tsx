@@ -5,8 +5,14 @@ import CourseList from "./CourseList";
 export interface Course {
   id: string;
   title: string;
-  authorId: string;
+  slug: string;
+  authorId: bigint;
   category: string;
+}
+
+export interface Author {
+  id: bigint;
+  name: string;
 }
 
 export interface CoursesPageState {

@@ -3,8 +3,9 @@ import AboutPage from "./AboutPage";
 import HomePage from "./HomePage";
 import Header from "./infrastructure/Header";
 import CoursesPage from "./CoursesPage";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import PageNoteFound from "./PageNoteFound";
+import ManageCoursePage from "./ManageCoursePage";
 
 const App: React.FC = () => {
   return (
@@ -14,6 +15,8 @@ const App: React.FC = () => {
         <Route path="/" exact component={HomePage} />
         <Route path="/courses" component={CoursesPage} />
         <Route path="/about" component={AboutPage} />
+        <Route path="/course/:slug" component={ManageCoursePage} />
+        <Redirect from="/about-page" to="about" />
         <Route component={PageNoteFound} />
       </Switch>
     </div>

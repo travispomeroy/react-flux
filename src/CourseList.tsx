@@ -1,6 +1,7 @@
 import React from "react";
 import { CoursesPageState } from "./CoursesPage";
 import PropType from "prop-types";
+import {Link} from "react-router-dom";
 
 const CourseList: React.FC<CoursesPageState> = (props: CoursesPageState) => {
   return (
@@ -16,7 +17,9 @@ const CourseList: React.FC<CoursesPageState> = (props: CoursesPageState) => {
         {props.courses.map(value => {
           return (
             <tr key={value.id}>
-              <td>{value.title}</td>
+              <td>
+                  <Link to={`/course/${value.slug}`}>{value.title}</Link>
+              </td>
               <td>{value.authorId}</td>
               <td>{value.category}</td>
             </tr>
