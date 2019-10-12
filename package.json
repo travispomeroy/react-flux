@@ -16,7 +16,10 @@
     "typescript": "3.6.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "run-p start:dev start:api",
+    "start:dev": "cross-env REACT_APP_API_URL=http://localhost:3001 react-scripts start",
+    "prestart:api": "node tools/createMockDb.js",
+    "start:api": "node tools/apiServer.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -40,9 +43,12 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.3.3",
     "@typescript-eslint/parser": "^2.3.3",
+    "cross-env": "^5.2.0",
     "eslint-config-prettier": "^6.4.0",
     "eslint-config-react": "^1.1.7",
     "eslint-plugin-prettier": "^3.1.1",
+    "json-server": "^0.15.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2"
   }
 }

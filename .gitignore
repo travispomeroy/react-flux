@@ -80,3 +80,4 @@ typings/
 .env.test.local
 .env.production.local
 
+tools/db.json
