@@ -7,7 +7,7 @@ export interface Course {
   id: string;
   title: string;
   slug: string;
-  authorId: bigint;
+  authorId: number;
   category: string;
 }
 
