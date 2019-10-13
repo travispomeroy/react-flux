@@ -21,7 +21,7 @@ const ManageCoursePage: React.FC<ManageCoursePageProps> = props => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
-        saveCourse(course);
+        saveCourse(course).then(() => props.history.push("/courses"));
     };
 
     return (
