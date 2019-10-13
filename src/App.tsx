@@ -6,10 +6,13 @@ import CoursesPage from "./CoursesPage";
 import { Route, Switch, Redirect } from "react-router-dom";
 import PageNoteFound from "./PageNoteFound";
 import ManageCoursePage from "./ManageCoursePage";
+import {ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 const App: React.FC = () => {
   return (
     <div>
+        <ToastContainer autoClose={3000} hideProgressBar />
       <Header />
       <Switch>
         <Route path="/" exact component={HomePage} />

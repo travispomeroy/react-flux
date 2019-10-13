@@ -3,6 +3,7 @@ import {RouteComponentProps} from "react-router-dom";
 import CourseForm from "./CourseForm";
 import {Course} from "./CoursesPage";
 import {saveCourse} from "./api/courseApi";
+import {toast} from "react-toastify";
 
 type ManageCoursePageProps = RouteComponentProps<{ slug: string }>;
 
@@ -21,7 +22,10 @@ const ManageCoursePage: React.FC<ManageCoursePageProps> = props => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
-        saveCourse(course).then(() => props.history.push("/courses"));
+        saveCourse(course).then(() => {
+            props.history.push("/courses")
+            toast.success("Course saved.");
+        });
     };
 
     return (
