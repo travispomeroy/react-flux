@@ -10,7 +10,7 @@ export default class CourseActions {
 
     saveCourse(course: Course) {
         return saveCourse(course).then(response => AppDispatcher.dispatch(new SaveCourseEvent({
-            actionType: ActionTypes.CREATE_COURSE,
+            actionType: course.id ? ActionTypes.CREATE_COURSE : ActionTypes.UPDATE_COURSE,
             course: course
         })));
     }

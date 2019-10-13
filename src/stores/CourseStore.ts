@@ -14,7 +14,11 @@ export default class CourseStore extends EventEmitter{
         AppDispatcher.register((action: Event) => {
             if (action instanceof SaveCourseEvent) {
                 const {payload} = action;
-                this._courses.push(payload.course);
+                if (payload.course.id) {
+                    this._courses = this._courses.map(x => x.id === payload.course.id ? payload.course : x);
+                } else {
+                    this._courses.push(payload.course);
+                }
                 this.emitChange();
             } else if (action instanceof LoadCourseEvent) {
                 debugger;
