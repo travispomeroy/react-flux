@@ -1,25 +1,27 @@
 import {EventEmitter} from "events";
-import AppDispatcher, {Payload} from "../AppDispatcher";
+
 import {Course} from "../CoursesPage";
-import ActionTypes from "../actions/ActionTypes";
+import {LoadCourseEvent, SaveCourseEvent} from "../actions/CourseActions";
+import {AppDispatcher, Event} from "../AppDispatcher";
 
 export default class CourseStore extends EventEmitter{
 
     private static readonly CHANGE_EVENT = "change";
-
-    private appDispatcher: AppDispatcher<Payload> = AppDispatcher.getInstance();
     private _courses: Course[] = [];
 
     constructor() {
         super();
-        this.appDispatcher.register(payload => {
-           switch (payload.actionType) {
-               case ActionTypes.CREATE_COURSE:
-                   this._courses.push(payload.course);
-                   this.emitChange();
-                   break;
-               default:
-           }
+        AppDispatcher.register((action: Event) => {
+            if (action instanceof SaveCourseEvent) {
+                const {payload} = action;
+                this._courses.push(payload.course);
+                this.emitChange();
+            } else if (action instanceof LoadCourseEvent) {
+                debugger;
+                const {payload} = action;
+                this._courses = payload.courses;
+                this.emitChange();
+            }
         });
     }
 

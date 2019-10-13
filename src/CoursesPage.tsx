@@ -23,11 +23,19 @@ export interface CoursesPageState {
 const CoursesPage: React.FC<FluxProps> = (props) => {
   const [coursesPageState, setCoursesPageState] = React.useState<
     CoursesPageState
-  >({ courses: [] });
+  >({ courses: props.courseStore.courses });
 
   React.useEffect(() => {
-    setCoursesPageState({courses: props.courseStore.courses});
-  }, [props.courseStore.courses]);
+    const callback = () => {
+      setCoursesPageState({courses: props.courseStore.courses});
+    };
+    props.courseStore.addChangeListener(callback);
+    if (props.courseStore.courses.length === 0) {
+      props.courseActions.loadCourses();
+    }
+
+    return () => props.courseStore.removeChangeListener(callback);
+  });
 
   return (
     <>
