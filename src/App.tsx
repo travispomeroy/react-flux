@@ -27,8 +27,8 @@ const App: React.FC = () => {
         <Route path="/" exact component={HomePage} />
         <Route path="/courses" component={CoursesPage} />
         <Route path="/about" component={AboutPage} />
-        <Route path="/course/:slug" component={ManageCoursePage} />
-        <Route path="/course" component={ManageCoursePage} />
+        <Route path="/course/:slug" render={(props) => <ManageCoursePage {...props} courseActions={courseActions} courseStore={courseStore} />} />
+        <Route path="/course" render={(props) => <ManageCoursePage {...props} courseActions={courseActions} courseStore={courseStore} />} />
         <Redirect from="/about-page" to="about" />
         <Route component={PageNoteFound} />
       </Switch>
