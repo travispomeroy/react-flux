@@ -1,5 +1,6 @@
 import React from "react";
 import {Course} from "./CoursesPage";
+import TextInput from "./TextInput";
 
 interface CourseFormProp {
     course: Course;
@@ -11,12 +12,7 @@ const CourseForm: React.FC<CourseFormProp> = props => {
 
     return (
         <form>
-            <div className="form-group">
-                <label htmlFor="title">Title</label>
-                <div className="field">
-                    <input onChange={props.handleChange} id="title" type="text" name="title" className="form-control" value={course.title}/>
-                </div>
-            </div>
+            <TextInput id="title" label="Title" handleChange={props.handleChange} value={props.course.title} name="title" />
 
             <div className="form-group">
                 <label htmlFor="author">Author</label>
@@ -29,12 +25,7 @@ const CourseForm: React.FC<CourseFormProp> = props => {
                 </div>
             </div>
 
-            <div className="form-group">
-                <label htmlFor="category">Category</label>
-                <div className="field">
-                    <input id="category" onChange={props.handleChange} type="text" name="category" className="form-control" value={course.category}/>
-                </div>
-            </div>
+            <TextInput id="category" label="Category" handleChange={props.handleChange} name="category" value={course.category}/>
 
             <input type="submit" value="Save" className="btn btn-primary"/>
         </form>
