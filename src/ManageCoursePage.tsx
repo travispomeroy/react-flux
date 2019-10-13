@@ -3,9 +3,6 @@ import {RouteComponentProps} from "react-router-dom";
 import CourseForm from "./CourseForm";
 import {Course} from "./CoursesPage";
 import {toast} from "react-toastify";
-import courseStore from "./stores/CourseStore";
-import CourseStore from "./stores/CourseStore";
-import CourseActions from "./actions/CourseActions";
 import {FluxProps} from "./App";
 
 type ManageCoursePageProps = RouteComponentProps<{slug: string}>;
@@ -31,7 +28,7 @@ const ManageCoursePage: React.FC<ManageCoursePageProps & FluxProps> = props => {
        if (slug) {
            setCourse(props.courseStore.getCourseBySlug(slug));
        }
-    }, [props.match.params.slug]);
+    }, [props.courseStore, props.match.params.slug]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
         setCourse({...course, [e.currentTarget.name]: e.currentTarget.value});

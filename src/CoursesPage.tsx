@@ -1,7 +1,7 @@
 import React from "react";
-import { getCourses } from "./api/courseApi";
 import CourseList from "./CourseList";
 import {Link} from "react-router-dom";
+import {FluxProps} from "./App";
 
 export interface Course {
   id: string;
@@ -20,14 +20,14 @@ export interface CoursesPageState {
   courses: Course[];
 }
 
-const CoursesPage: React.FC = () => {
+const CoursesPage: React.FC<FluxProps> = (props) => {
   const [coursesPageState, setCoursesPageState] = React.useState<
     CoursesPageState
   >({ courses: [] });
 
   React.useEffect(() => {
-    getCourses().then(value => setCoursesPageState({ courses: value }));
-  }, []);
+    setCoursesPageState({courses: props.courseStore.courses});
+  }, [props.courseStore.courses]);
 
   return (
     <>

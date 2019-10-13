@@ -2,7 +2,6 @@ import AppDispatcher from "../AppDispatcher";
 import {Course} from "../CoursesPage";
 import {saveCourse} from "../api/courseApi";
 import ActionTypes from "./ActionTypes";
-import {Promise} from "q";
 
 export default class CourseActions {
 
