@@ -8,7 +8,16 @@ import PageNoteFound from "./PageNoteFound";
 import ManageCoursePage from "./ManageCoursePage";
 import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import CourseStore from "./stores/CourseStore";
+import CourseActions from "./actions/CourseActions";
 
+const courseStore: CourseStore = new CourseStore();
+const courseActions: CourseActions = new CourseActions();
+
+export interface FluxProps {
+    courseStore: CourseStore;
+    courseActions: CourseActions;
+}
 const App: React.FC = () => {
   return (
     <div>

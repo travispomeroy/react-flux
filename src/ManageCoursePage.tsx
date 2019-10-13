@@ -2,10 +2,13 @@ import React, {useEffect} from "react";
 import {RouteComponentProps} from "react-router-dom";
 import CourseForm from "./CourseForm";
 import {Course} from "./CoursesPage";
-import {getCourseBySlug, saveCourse} from "./api/courseApi";
 import {toast} from "react-toastify";
+import courseStore from "./stores/CourseStore";
+import CourseStore from "./stores/CourseStore";
+import CourseActions from "./actions/CourseActions";
+import {FluxProps} from "./App";
 
-type ManageCoursePageProps = RouteComponentProps<{ slug: string }>;
+type ManageCoursePageProps = RouteComponentProps<{slug: string}>;
 
 export interface FormErrors {
     titleErrorMessage?: string;
@@ -13,7 +16,7 @@ export interface FormErrors {
     categoryErrorMessage?: string;
 }
 
-const ManageCoursePage: React.FC<ManageCoursePageProps> = props => {
+const ManageCoursePage: React.FC<ManageCoursePageProps & FluxProps> = props => {
     const [errors, setErrors] = React.useState<FormErrors>({});
     const [course, setCourse] = React.useState<Course>({
         id: "",
@@ -26,7 +29,7 @@ const ManageCoursePage: React.FC<ManageCoursePageProps> = props => {
     useEffect(() => {
        const slug = props.match.params.slug;
        if (slug) {
-           getCourseBySlug(slug).then(response => setCourse(response));
+           setCourse(props.courseStore.getCourseBySlug(slug));
        }
     }, [props.match.params.slug]);
 
@@ -37,7 +40,7 @@ const ManageCoursePage: React.FC<ManageCoursePageProps> = props => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         if (!formIsValid()) return;
-        saveCourse(course).then(() => {
+        props.courseActions.saveCourse(course).then(() => {
             props.history.push("/courses");
             toast.success("Course saved.");
         });
