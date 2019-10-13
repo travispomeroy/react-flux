@@ -5,13 +5,14 @@ import TextInput from "./TextInput";
 interface CourseFormProp {
     course: Course;
     handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 const CourseForm: React.FC<CourseFormProp> = props => {
     const course = props.course;
 
     return (
-        <form>
+        <form onSubmit={props.handleSubmit}>
             <TextInput id="title" label="Title" handleChange={props.handleChange} value={props.course.title} name="title" />
 
             <div className="form-group">
@@ -27,7 +28,7 @@ const CourseForm: React.FC<CourseFormProp> = props => {
 
             <TextInput id="category" label="Category" handleChange={props.handleChange} name="category" value={course.category}/>
 
-            <input type="submit" value="Save" className="btn btn-primary"/>
+            <input type="submit" value="Save" className="btn btn-primary" />
         </form>
     );
 };

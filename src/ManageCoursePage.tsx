@@ -2,6 +2,7 @@ import React from "react";
 import {RouteComponentProps} from "react-router-dom";
 import CourseForm from "./CourseForm";
 import {Course} from "./CoursesPage";
+import {saveCourse} from "./api/courseApi";
 
 type ManageCoursePageProps = RouteComponentProps<{ slug: string }>;
 
@@ -18,11 +19,15 @@ const ManageCoursePage: React.FC<ManageCoursePageProps> = props => {
         setCourse({...course, [e.currentTarget.name]: e.currentTarget.value});
     };
 
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+        e.preventDefault();
+        saveCourse(course);
+    };
 
     return (
         <>
             <h2>Manage Course</h2>
-            <CourseForm course={course} handleChange={handleChange}/>
+            <CourseForm course={course} handleChange={handleChange} handleSubmit={handleSubmit} />
         </>
     );
 };
