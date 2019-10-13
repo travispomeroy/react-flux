@@ -15,6 +15,7 @@ export interface FormErrors {
 
 const ManageCoursePage: React.FC<ManageCoursePageProps & FluxProps> = props => {
     const [errors, setErrors] = React.useState<FormErrors>({});
+    const [courses, setCourses] = React.useState<Course[]>(props.courseStore.courses);
     const [course, setCourse] = React.useState<Course>({
         id: "",
         slug: "",
@@ -24,11 +25,22 @@ const ManageCoursePage: React.FC<ManageCoursePageProps & FluxProps> = props => {
     });
 
     useEffect(() => {
+
+        const onChange  = (arg: any[]) => {
+            setCourses(props.courseStore.courses);
+        };
+        props.courseStore.addChangeListener(onChange);
+
        const slug = props.match.params.slug;
-       if (slug) {
+
+       if (courses.length === 0) {
+           props.courseActions.loadCourses();
+       } else if (slug) {
            setCourse(props.courseStore.getCourseBySlug(slug));
        }
-    }, [props.courseStore, props.match.params.slug]);
+
+       return () => props.courseStore.removeChangeListener(onChange);
+    }, [courses.length, props.match.params.slug]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
         setCourse({...course, [e.currentTarget.name]: e.currentTarget.value});
