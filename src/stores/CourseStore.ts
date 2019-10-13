@@ -1,7 +1,7 @@
 import {EventEmitter} from "events";
 
 import {Course} from "../CoursesPage";
-import {LoadCourseEvent, SaveCourseEvent} from "../actions/CourseActions";
+import {DeleteCourseEvent, LoadCourseEvent, SaveCourseEvent} from "../actions/CourseActions";
 import {AppDispatcher, Event} from "../AppDispatcher";
 
 export default class CourseStore extends EventEmitter{
@@ -24,6 +24,10 @@ export default class CourseStore extends EventEmitter{
                 debugger;
                 const {payload} = action;
                 this._courses = payload.courses;
+                this.emitChange();
+            } else if (action instanceof DeleteCourseEvent) {
+                const {payload} = action;
+                this._courses = this._courses.filter(x => x.id !== payload.courseId);
                 this.emitChange();
             }
         });

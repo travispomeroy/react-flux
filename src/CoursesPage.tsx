@@ -41,7 +41,7 @@ const CoursesPage: React.FC<FluxProps> = (props) => {
     <>
       <h2>Courses</h2>
       <Link className="btn btn-primary" to="/course">Add Course</Link>
-      <CourseList courses={coursesPageState.courses} />
+      <CourseList courses={coursesPageState.courses} courseStore={props.courseStore} courseActions={props.courseActions} />
     </>
   );
 };
